@@ -18,13 +18,23 @@ scaler=StandardScaler()
 X=scaler.fit_transform(X)
 
 # 4. find the optimal number of clusters    
-kmeans=KMeans(n_clusters=3,random_state=42)
+kmeans=KMeans(n_clusters=4,random_state=42)
 
 kmeans.fit(X)
 
 
 # 5. predict the clusters
 df['cluster-3']=kmeans.fit_predict(X)
+
+df['cluster-3'].value_counts()
+
+
+df['cluster-3'].replace({0:'c1',1:'c2',2:'c3',3:'c4'},inplace=True)
+
+
+# exoprt the data
+
+df.to_csv('./data/AnnualReport2020_clustered-k4.csv',index=False)
 
 # 6. plot the clusters
 px.scatter(df,x='D.O mg/L',y='pH',color='cluster-3')
